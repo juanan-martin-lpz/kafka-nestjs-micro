@@ -1,6 +1,7 @@
-import { Clause, Condition } from '@my-workspace/domain';
+import { Clause, Condition, Person } from '@my-workspace/domain';
 import { Body, Controller, Inject, OnModuleInit, Post } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
+import { lastValueFrom } from 'rxjs';
 
 @Controller('dbreader')
 export class DbreaderController implements OnModuleInit {
@@ -8,20 +9,39 @@ export class DbreaderController implements OnModuleInit {
 
   onModuleInit() {
     this.producer.subscribeToResponseOf('personas');
+    this.producer.connect();
   }
 
+
   @Post()
-  async getData(@Body() query: Clause | Condition | null): Promise<unknown> {
-    return new Promise<unknown>((resolve, reject) => {
-      if (query) {
-        this.producer.send('personas', query).subscribe((response) => {
-          resolve(response);
-        });
-      } else {
-        this.producer.send('personas', {}).subscribe((response) => {
-          resolve(response);
-        });
+  async getData(@Body() query: Clause | Condition): Promise<Person[]> {
+
+    return [
+      {
+        id: "0001",
+        first_name: "Juan",
+        last_name: "Martin",
+        address: {
+          id: "00001",
+          country: "Spain",
+          province: "Madrid",
+          city: "Fuenlabrada",
+          street: "Avenida",
+          street_line: "del Hospital"
+        }
       }
-    });
+    ]
+
+    /*
+    //return new Promise<unknown>((resolve, reject) => {
+      if (query) {
+        return lastValueFrom(this.producer.send('personas', query))
+
+      } else {
+        return lastValueFrom(this.producer.send('personas', {}))
+      }
+    //});
+    */
   }
 }
+

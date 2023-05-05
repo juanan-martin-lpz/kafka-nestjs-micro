@@ -8,8 +8,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 3000
-    targetPort: 3000
+  - port: 3002
+    targetPort: 3002
     nodePort: 30003
   selector:
     app: assets
@@ -29,12 +29,12 @@ spec:
     spec:
       containers:
       - name: backend-application
-        image: backend-application:latest
+        image: backend-backend-usecase:latest
         imagePullPolicy: IfNotPresent
         resources:
           limits:
             memory: "256Mi"
             cpu: "500m"
         ports:
-        - containerPort: 3000
+        - containerPort: 3002
 

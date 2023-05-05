@@ -21,17 +21,21 @@ async function bootstrap() {
       consumer: {
         groupId: 'test-assets',
       },
+      producer: {
+        allowAutoTopicCreation: true,
+      }
     },
   });
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3001;
   const host = process.env.HOST || 'localhost';
 
   app.startAllMicroservices();
 
-  await app.listen(port);
+  app.listen(port, host);
+
   Logger.log(
     `🚀 Application is running on: http://${host}:${port}/${globalPrefix}`
   );

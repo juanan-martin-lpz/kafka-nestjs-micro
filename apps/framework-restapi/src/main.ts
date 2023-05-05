@@ -20,6 +20,9 @@ async function bootstrap() {
       consumer: {
         groupId: 'test-assets',
       },
+      producer: {
+        allowAutoTopicCreation: true,
+      }
     },
   });
 
@@ -30,7 +33,8 @@ async function bootstrap() {
 
   app.startAllMicroservices();
 
-  await app.listen(port, host);
+  app.listen(port, host);
+
   Logger.log(
     `🚀 Application is running on: http://${host}:${port}/${globalPrefix}`
   );

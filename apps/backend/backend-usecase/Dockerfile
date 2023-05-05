@@ -7,7 +7,7 @@
 FROM docker.io/node:lts-alpine
 
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=3002
 
 WORKDIR /app
 
@@ -20,5 +20,7 @@ RUN chown -R backend-backend-usecase:backend-backend-usecase .
 # You can remove this install step if you build with `--bundle` option.
 # The bundled output will include external dependencies.
 RUN npm --prefix backend-backend-usecase --omit=dev -f install
+
+EXPOSE 3002
 
 CMD [ "node", "backend-backend-usecase" ]

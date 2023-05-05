@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Partitioners } from 'kafkajs';
 
 @Module({
   imports: [
@@ -12,12 +13,20 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'test',
+            clientId: 'test-restapi',
             brokers: ['kafka-service:9092'],
           },
           consumer: {
             groupId: 'test-assets',
           },
+          producer: {
+            allowAutoTopicCreation: true,
+            createPartitioner: Partitioners.DefaultPartitioner
+          },
+          run: {
+            autoCommit: true,
+            autoCommitInterval: 150
+          }
         },
       },
     ]),

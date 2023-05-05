@@ -12,7 +12,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'test',
+            clientId: 'test-mongo',
             brokers: ['kafka-service:9092'],
           },
           consumer: {
