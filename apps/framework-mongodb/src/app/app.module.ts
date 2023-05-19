@@ -16,7 +16,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             brokers: ['kafka-service:9092'],
           },
           consumer: {
-            groupId: 'test-assets',
+            groupId: 'test-mongo-assets',
           },
         },
       },

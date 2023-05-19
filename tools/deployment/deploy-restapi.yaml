@@ -6,11 +6,8 @@ metadata:
   labels:
     app: assets
 spec:
-  type: NodePort
   ports:
   - port: 3000
-    targetPort: 3000
-    nodePort: 30001
   selector:
     app: assets
 ---

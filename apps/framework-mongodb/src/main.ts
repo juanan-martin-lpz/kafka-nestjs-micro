@@ -19,7 +19,7 @@ async function bootstrap() {
           brokers: ['kafka-service:9092'],
         },
         consumer: {
-          groupId: 'test-assets',
+          groupId: 'test-mongo-assets',
         },
       },
     }
